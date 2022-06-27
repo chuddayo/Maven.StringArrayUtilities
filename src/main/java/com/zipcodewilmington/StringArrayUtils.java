@@ -25,7 +25,7 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        return null;
+        return array[array.length - 1];
     }
 
     /**
@@ -33,7 +33,7 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        return null;
+        return array[array.length - 2];
     }
 
     /**
@@ -42,6 +42,9 @@ public class StringArrayUtils {
      * @return true if the array contains the specified `value`
      */ // TODO
     public static boolean contains(String[] array, String value) {
+        for (String element : array) {
+            if (element.equals(value)) return true;
+        }
         return false;
     }
 
@@ -50,7 +53,13 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-        return null;
+        String[] reverseArray = new String[array.length];
+        int pointer = 0;
+        for (int i = array.length - 1; i >= 0; i--) {
+            reverseArray[pointer] = array[i];
+            pointer++;
+        }
+        return reverseArray;
     }
 
     /**
@@ -58,7 +67,15 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+        int halfLength = array.length / 2;
+        int counter = 0;
+        for (int i = array.length - 1; i >= halfLength; i--) {
+            if (!array[i].equals(array[counter])) {
+                return false;
+            }
+            counter++;
+        }
+        return true;
     }
 
     /**
@@ -66,7 +83,19 @@ public class StringArrayUtils {
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        for (int i = 0; i < alphabet.length(); i++) {
+            for (int j = 0; j < array.length; j++) {
+                System.out.println(array[j] + " " + alphabet.substring(i, i+1));
+                if (array[j].toLowerCase().contains(alphabet.substring(i, i+1))) {
+                    break;
+                }
+                if (j == array.length - 1) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
