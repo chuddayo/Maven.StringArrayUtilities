@@ -1,4 +1,6 @@
 package com.zipcodewilmington;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * Created by leon on 1/29/18.
@@ -104,7 +106,13 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        int counter = 0;
+        for (String element : array) {
+            if (element.equals(value)) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
     /**
@@ -113,7 +121,9 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+        ArrayList<String> newArray = new ArrayList<String>(Arrays.asList(array));
+        newArray.remove(valueToRemove);
+        return newArray.toArray(new String[0]);
     }
 
     /**
@@ -121,7 +131,14 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> newArray = new ArrayList<String>(Arrays.asList(array));
+        for (int i = 0; i < newArray.size() - 1; i++) {
+            if (newArray.get(i).equals(newArray.get(i+1))) {
+                newArray.remove(i);
+                i--;
+            }
+        }
+        return newArray.toArray(new String[newArray.size()]);
     }
 
     /**
@@ -129,7 +146,27 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> copyArray = new ArrayList<String>(Arrays.asList(array));
+        ArrayList<String> packedArray = new ArrayList<String>();
+        ArrayList<String> memoryStack = new ArrayList<String>();
+        memoryStack.add(copyArray.get(0)); // adds first string in newArray to the memory stack so the for loop can compare
+        String addMeUp = copyArray.get(0);
+        //System.out.println(addMeUp);
+
+        for (int i = 1; i < copyArray.size(); i++) {
+            if (copyArray.get(i).equals(memoryStack.get(memoryStack.size()-1))) {
+                addMeUp += copyArray.get(i);
+            }
+            else {
+                packedArray.add(addMeUp);
+                addMeUp = copyArray.get(i);
+                memoryStack.add(copyArray.get(i));
+                System.out.println(addMeUp);
+            }
+        }
+        packedArray.add(addMeUp);
+        System.out.println(packedArray);
+        return packedArray.toArray(new String[packedArray.size()]);
     }
 
 
