@@ -69,15 +69,10 @@ public class StringArrayUtils {
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        int halfLength = array.length / 2;
-        int counter = 0;
-        for (int i = array.length - 1; i >= halfLength; i--) {
-            if (!array[i].equals(array[counter])) {
-                return false;
-            }
-            counter++;
+        if (Arrays.equals(array, StringArrayUtils.reverse(array))) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -88,7 +83,7 @@ public class StringArrayUtils {
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < alphabet.length(); i++) {
             for (int j = 0; j < array.length; j++) {
-                System.out.println(array[j] + " " + alphabet.substring(i, i+1));
+                //System.out.println(array[j] + " " + alphabet.substring(i, i+1));
                 if (array[j].toLowerCase().contains(alphabet.substring(i, i+1))) {
                     break;
                 }
@@ -151,7 +146,6 @@ public class StringArrayUtils {
         ArrayList<String> memoryStack = new ArrayList<String>();
         memoryStack.add(copyArray.get(0)); // adds first string in newArray to the memory stack so the for loop can compare
         String addMeUp = copyArray.get(0);
-        //System.out.println(addMeUp);
 
         for (int i = 1; i < copyArray.size(); i++) {
             if (copyArray.get(i).equals(memoryStack.get(memoryStack.size()-1))) {
@@ -161,7 +155,6 @@ public class StringArrayUtils {
                 packedArray.add(addMeUp);
                 addMeUp = copyArray.get(i);
                 memoryStack.add(copyArray.get(i));
-                System.out.println(addMeUp);
             }
         }
         packedArray.add(addMeUp);
